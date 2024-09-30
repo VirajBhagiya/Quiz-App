@@ -31,7 +31,7 @@ export class UserManager {
             });
         });
 
-        socket.on("join_admin", (data) => {
+        socket.on("joinAdmin", (data) => {
             const userId = this.quizManager.addUser(data.roomId, data.name)
             if(data.password !== ADMIN_PASSWORD){
                 return;
@@ -41,6 +41,10 @@ export class UserManager {
                 userId,
                 state: this.quizManager.getCurrentState(roomId)
             });
+
+            socket.on("createQuiz", data => {
+                this.quizManager.addQuiz(data.roomId)
+            })
 
             socket.on("createProblem", data => {
                 this.quizManager.addProblem(data.roomId, data.problem)

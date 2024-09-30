@@ -65,4 +65,9 @@ export class QuizManager {
         }
         return quiz.getCurrentState();
     }
+
+    addQuiz(roomId: string){
+        const quiz = new Quiz(roomId);
+        this.quizes.push(quiz);
+    }
 }
