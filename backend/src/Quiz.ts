@@ -1,7 +1,7 @@
 import { IoManager } from "./managers/IoManager";
 
 export type AllowedSubmissions = 0 | 1 | 2 | 3;
-const PROBLEM_TIME_S = 20;
+const PROBLEM_TIME_S = 30;
 
 interface User {
     name: string;
@@ -144,7 +144,7 @@ export class Quiz {
             isCorrect: problem.answer === submission,
             optionSelected: submission
         });
-        user.points += 1000 - 500 * (new Date().getTime() - problem.startTime) / PROBLEM_TIME_S;
+        user.points += (1000 - (500 * (new Date().getTime() - problem.startTime) / (PROBLEM_TIME_S * 1000)));
     }
 
     getLeaderboard(){
