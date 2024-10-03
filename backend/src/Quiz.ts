@@ -1,7 +1,7 @@
 import { IoManager } from "./managers/IoManager";
 
 export type AllowedSubmissions = 0 | 1 | 2 | 3;
-const PROBLEM_TIME_S = 30;
+const PROBLEM_TIME_S = 20;
 
 interface User {
     name: string;
@@ -126,15 +126,19 @@ export class Quiz {
     }
 
     submit(userId: string, roomId: string, problemId: string, submission: AllowedSubmissions){
+        console.log("userId");
+        console.log(userId);
         const problem = this.problems.find(x => x.id == problemId);
         const user = this.users.find(x => x.id ===userId);
 
         if(!problem || !user){
+            console.log("problem or user not found!")
             return;
         }
         const existingSubmission = problem.submissions.find(x => x.userId === userId);
 
         if(existingSubmission){
+            console.log("existing submissions!")
             return;
         }
 

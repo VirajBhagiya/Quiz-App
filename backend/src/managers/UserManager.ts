@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import { QuizManager } from "./QuizManager";
-const ADMIN_PASSWORD = "ADMIN_PASSWORD";
+const ADMIN_PASSWORD = "admin";
 
 export class UserManager {  
     private quizManager;

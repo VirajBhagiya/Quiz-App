@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-import { CurrentQuestion } from "./CurrentQuestion";
+import { io,Socket } from "socket.io-client";
 import { LeaderBoard } from "./leaderboard/LeaderBoard";
 import { Quiz } from "./Quiz";
 
@@ -56,11 +55,22 @@ export const User = () => {
     return <UserLoggedin code = {code} name={name} />
 }
 
-export const UserLoggedin = ({name, code}) => {
-    const [socket, setSocket] = useState<null | any>(null);
+interface UserLoggedinProps {
+    name: string;
+    code: string;
+}
+
+export const UserLoggedin = ({name, code}: UserLoggedinProps) => {
+    const [socket, setSocket] = useState<null | Socket>(null);
     const roomId = code;
     const [currentState, setCurrentState] = useState("not_started");
-    const [currentQuestion, setCurrentQuestion] = useState<any>(null);
+    interface Question {
+        id: string;
+        description: string;
+        options: string[];
+    }
+
+    const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
     const [leaderboard, setLeaderboard] = useState([]);
     const [userId, setUserId] = useState("");
 
@@ -108,17 +118,21 @@ export const UserLoggedin = ({name, code}) => {
     }
 
     if(currentState === "question") {
-        return <Quiz roomId={roomId} userId={userId} problemId={currentQuestion.id} quizData={{
-            title: currentQuestion.description,
-            options: currentQuestion.options
-        }} socket={socket} />
+        return currentQuestion ? (
+            <Quiz roomId={roomId} userId={userId} problemId={currentQuestion.id} quizData={{
+                title: currentQuestion.description,
+                options: currentQuestion.options
+            }} socket={socket} />
+        ) : (
+            <div>Loading question...</div>
+        );
     }
 
     if(currentState === "leaderboard") {
-        return <LeaderBoard leaderboardData={leaderboard.map((x: any) => ({
+        return <LeaderBoard leaderboardData={leaderboard.map((x: { name: string; points: number; image: string }) => ({
             username: x.name,
             points: x.points,
-            image: x.image
+            profilePicture: x.image
         }))} />
     }
 

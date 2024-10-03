@@ -15,7 +15,7 @@ export const Admin = () => {
         socket.on("connect", () => {
             console.log(socket.id);
             socket.emit("joinAdmin", {
-                password: "ADMIN_PASSWORD"
+                password: "admin"
             })
         });
     }, []);
