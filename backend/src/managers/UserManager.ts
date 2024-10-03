@@ -20,6 +20,7 @@ export class UserManager {
                 userId,
                 state: this.quizManager.getCurrentState(data.roomId)
             });
+            socket.join(data.roomId);
         });
 
         socket.on("joinAdmin", (data) => {

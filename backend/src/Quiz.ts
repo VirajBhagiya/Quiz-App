@@ -6,7 +6,7 @@ const PROBLEM_TIME_S = 20;
 interface User {
     name: string;
     id: string;
-    poitns: number;
+    points: number;
 }
 
 interface Submission {
@@ -74,7 +74,7 @@ export class Quiz {
         this.currentState = "question";
         problem.startTime = new Date().getTime();
         problem.submissions = [];
-        IoManager.getIo().emit("CHANGE_PROBLEM", {
+        IoManager.getIo().to(this.roomId).emit("problem", {
             problem
         })
         setTimeout(() => {
@@ -98,6 +98,7 @@ export class Quiz {
             this.setActiveProblem(problem);
             
         } else {
+            this.activeProblem--;
             // IoManager.getIo().emit("QUIZ_FINISHED", {
             //     problem
             // })
@@ -119,7 +120,7 @@ export class Quiz {
         this.users.push({
             id,
             name,
-            poitns: 0
+            points: 0
         })
         return id;
     }
@@ -143,11 +144,11 @@ export class Quiz {
             isCorrect: problem.answer === submission,
             optionSelected: submission
         });
-        user.poitns += 1000 - 500 * (new Date().getTime() - problem.startTime) / PROBLEM_TIME_S;
+        user.points += 1000 - 500 * (new Date().getTime() - problem.startTime) / PROBLEM_TIME_S;
     }
 
     getLeaderboard(){
-        return this.users.sort((a, b) => a.poitns < b.poitns ? 1 : -1).splice(0, 20);
+        return this.users.sort((a, b) => a.points < b.points ? 1 : -1).slice(0, 20);
     }
 
     getCurrentState(){

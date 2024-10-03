@@ -55,10 +55,20 @@ export const UserLoggedin = (name) => {
             setCurrentState(state.type);
             
         });
+
+        socket.on("leaderboard", (data) => {
+            setCurrentState("leaderboard");
+            setLeaderboard(data.leaderboard);
+        })
+
+        socket.on("problem", (data) => {
+            setCurrentState("question");
+            setCurrentQuestion(data.problem);
+        })
     }, []);
 
     if(currentState === "not_started") {
-        <div>
+        return <div>
             This quiz has not started yet
         </div>
     }
