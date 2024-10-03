@@ -1,27 +1,25 @@
-
 import Card from "./Card";
 
-export function LeaderBoard({leaderboardData}: {
-    leaderboardData: {
+export function LeaderBoard({ leaderboardData }: {
+    leaderboardData: Array<{
         points: number;
         username: string,
         profilePicture: string
-    }
+    }>
 }) {
-
     return (
-        <div className="bg-opacity-20 bg-white backdrop-blur-5 border border-opacity-30 border-solid border-white p-6 rounded-lg shadow-md">
-            <h1 className="text-2xl text-center my-4 text-white">
+        <div className="bg-white bg-opacity-80 backdrop-blur-md border border-opacity-30 border-gray-300 p-6 rounded-lg shadow-md mt-6">
+            <h1 className="text-2xl font-semibold text-center my-4 text-gray-800">
                 Leaderboard Results 🚀
             </h1>
-            <div className="">
-                {leaderboardData.map((el, index) => (
-                    <div className=" flex justify-center">
+            <div className="space-y-4">
+                {leaderboardData.map((data, index) => (
+                    <div key={index} className="flex justify-center">
                         <Card
                             sno={index + 1}
-                            name={el.username}
-                            points={el.points}
-                            image={el.profilePicture}
+                            name={data.username}
+                            points={data.points}
+                            image={data.profilePicture}
                         />
                     </div>
                 ))}
