@@ -63,7 +63,7 @@ export const UserLoggedin = ({ name, code }: UserLoggedinProps) => {
     const [userId, setUserId] = useState("");
 
     useEffect(() => {
-        const socket = io("http://localhost:3000");
+        const socket = io("quiz-app-ten-snowy.vercel.app");
         setSocket(socket);
 
         socket.on("connect", () => {
