@@ -9,7 +9,7 @@ export const Admin = () => {
     const [roomId, setRoomId] = useState("");
 
     useEffect(() => {
-        const socket = io("https://quiz-app-ten-snowy.vercel.app/");
+        const socket = io("http://localhost:8080");
         setSocket(socket);
         
         socket.on("connect", () => {
