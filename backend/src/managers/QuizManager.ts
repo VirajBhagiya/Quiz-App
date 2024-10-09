@@ -1,5 +1,4 @@
 import { AllowedSubmissions, Quiz } from "../Quiz";
-import { IoManager } from "./IoManager";
 let globalProblemId = 0;
 
 export class QuizManager {
