@@ -11,7 +11,7 @@ export class IoManager {
         if (!this.io) {
             const io = new Server(server, {
                 cors: {
-                    origin: "https://quiz-app-lime-five.vercel.app/",
+                    origin: "*",
                     methods: ["GET", "POST"]
                 }
             });
