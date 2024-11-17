@@ -13,7 +13,7 @@ Welcome to the **Quiz Application**! 🧠 This app allows users to participate i
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/quiz-app.git
+   git clone https://github.com/VirajBhagiya/Quiz-App.git
    ```
 2. Navigate into the project directory:
    ```
